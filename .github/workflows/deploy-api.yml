@@ -66,7 +66,7 @@ jobs:
 
       - name: Serverless Login
         run: |
-          npx serverless login --access-key ${{ secrets.SERVERLESS_ACCESS_KEY }}
+          npx serverless login
 
       - name: Package with Serverless Framework
         run: |
