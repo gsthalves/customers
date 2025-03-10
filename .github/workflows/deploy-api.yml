@@ -64,6 +64,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: sa-east-1
 
+      - name: Set Serverless Access Key
+        run: |
+          echo "SERVERLESS_ACCESS_KEY=${{ secrets.SERVERLESS_ACCESS_KEY }}" >> $GITHUB_ENV
+
       - name: Serverless Login
         run: |
           npx serverless login
@@ -112,9 +116,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: sa-east-1
 
+      - name: Set Serverless Access Key
+        run: |
+          echo "SERVERLESS_ACCESS_KEY=${{ secrets.SERVERLESS_ACCESS_KEY }}" >> $GITHUB_ENV
+
       - name: Serverless Login
         run: |
-          npx serverless login --access-key ${{ secrets.SERVERLESS_ACCESS_KEY }}
+          npx serverless login
 
       - name: Deploy with Serverless Framework (Only with Approval)
         run: |
