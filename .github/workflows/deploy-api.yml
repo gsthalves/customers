@@ -39,16 +39,32 @@ jobs:
           cd api
           npm install
 
-      - name: Run Tests
+      - name: Run Tests with Coverage
         run: |
           cd api
-          npm test
+          npm run test:cov
+
+      - name: Save Test Coverage as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-coverage
+          path: api/coverage
+          retention-days: 5
 
       - name: Build API
         id: build
         run: |
           cd api
           npm run build
+
+      - name: Serverless Login
+        run: |
+          npx serverless login --access-key ${{ secrets.SERVERLESS_ACCESS_KEY }}
+
+      - name: Package with Serverless Framework
+        run: |
+          cd api
+          npx serverless package --stage ${{ env.ENVIRONMENT }}
 
       - name: Save Build as Artifact
         uses: actions/upload-artifact@v4
@@ -88,6 +104,10 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+
+      - name: Serverless Login
+        run: |
+          npx serverless login --access-key ${{ secrets.SERVERLESS_ACCESS_KEY }}
 
       - name: Deploy with Serverless Framework (Only with Approval)
         run: |
