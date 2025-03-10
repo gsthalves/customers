@@ -51,7 +51,7 @@ jobs:
           npm run build
 
       - name: Save Build as Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: api-build
           path: api/.serverless
@@ -77,7 +77,7 @@ jobs:
           fi
 
       - name: Download API Build
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: api-build
           path: api/.serverless
