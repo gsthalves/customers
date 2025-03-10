@@ -3,10 +3,17 @@ name: Infrastructure Deploy
 on:
   push:
     branches:
-      - main
+      - develop
     paths:
       - "infrastructure/**"
   workflow_dispatch:
+
+env:
+  ENVIRONMENT: ${{ 
+    github.ref == 'refs/heads/main' && 'prd' || 
+    github.ref == 'refs/heads/develop' && 'dev' || 
+    github.ref == 'refs/heads/homolog' && 'hml' 
+  }}
 
 jobs:
   terraform-plan:
@@ -33,19 +40,14 @@ jobs:
 
       - name: Initialize Terraform
         run: |
-          cd infra
-          terraform init
-
-      - name: Validate Terraform
-        run: |
-          cd infra
-          terraform validate
+          cd infrastructure
+          terraform init --backend-config=envs/${{ env.ENVIRONMENT }}.backend.config
 
       - name: Terraform Plan
         id: plan
         run: |
-          cd infra
-          terraform plan -out=tfplan
+          cd infrastructure
+          terraform plan --var-file=envs/${{ env.ENVIRONMENT }}.tfvars -out=tfplan
 
       - name: Save Plan as Artifact
         uses: actions/upload-artifact@v3
@@ -58,7 +60,7 @@ jobs:
     name: "Terraform Apply"
     needs: terraform-plan
     runs-on: ubuntu-latest
-    environment: production
+    environment: ${{ env.ENVIRONMENT }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -67,7 +69,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: terraform-plan
-          path: infra
+          path: infrastructure
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -83,5 +85,5 @@ jobs:
 
       - name: Apply Terraform (Only with Approval)
         run: |
-          cd infra
-          terraform apply -auto-approve tfplan
+          cd infrastructure
+          terraform apply -auto-approve tfplan --var-file=envs/${{ env.ENVIRONMENT }}.tfvars

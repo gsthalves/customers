@@ -3,10 +3,17 @@ name: API Deploy
 on:
   push:
     branches:
-      - main
+      - develop
     paths:
       - "api/**"
   workflow_dispatch:
+
+env:
+  ENVIRONMENT: ${{ 
+    github.ref == 'refs/heads/main' && 'prd' || 
+    github.ref == 'refs/heads/develop' && 'dev' || 
+    github.ref == 'refs/heads/homolog' && 'hml' 
+  }}
 
 jobs:
   build-and-test:
@@ -51,7 +58,7 @@ jobs:
     name: "Deploy API"
     needs: build-and-test
     runs-on: ubuntu-latest
-    environment: production
+    environment: ${{ env.ENVIRONMENT }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -72,4 +79,4 @@ jobs:
       - name: Deploy with Serverless Framework (Only with Approval)
         run: |
           cd api
-          npx serverless deploy
+          npx serverless deploy --stage ${{ env.ENVIRONMENT }}
