@@ -110,6 +110,16 @@ jobs:
           name: api-build
           path: api/package
 
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install Dependencies
+        run: |
+          cd api
+          npm install
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -124,12 +134,6 @@ jobs:
       - name: Serverless Login
         run: |
           npx serverless login
-
-      - name: List Files to Verify Output Location
-        run: |
-          cd api
-          echo "Listing contents of the api directory:"
-          ls -alh  # Lista todos os arquivos no diretório onde o comando foi executado
 
       - name: Deploy with Serverless Framework (Only with Approval)
         run: |
