@@ -9,11 +9,10 @@ on:
   workflow_dispatch:
 
 env:
-  ENVIRONMENT: ${{ 
-    github.ref == 'refs/heads/main' && 'prd' || 
-    github.ref == 'refs/heads/develop' && 'dev' || 
-    github.ref == 'refs/heads/homolog' && 'hml' 
-  }}
+  ENVIRONMENT: ${{
+    github.ref == 'refs/heads/main' && 'prd' ||
+    github.ref == 'refs/heads/develop' && 'dev' ||
+    github.ref == 'refs/heads/homolog' && 'hml' }}
 
 jobs:
   build-and-test:
