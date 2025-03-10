@@ -1,0 +1,88 @@
+org: gsthalves
+service: customers
+
+plugins:
+  - serverless-offline
+  - serverless-prune-plugin
+  - serverless-domain-manager
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  stage: ${opt:stage, 'dev'}
+  region: sa-east-1
+  layers:
+    - arn:aws:lambda:sa-east-1:901920570463:layer:aws-otel-nodejs-amd64-ver-1-30-1:1
+  environment:
+    ENV: ${self:provider.stage}
+    APP_NAME: ${self:service}
+    APP_VERSION: '1.0.0'
+    LOG_LEVEL: info
+    REGION: ${self:provider.region}
+    OPENSEARCH_DOMAIN_ENDPOINT: https://${ssm:/customers/customers_opensearch_endpoint}
+
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource: 'arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/customers-${self:provider.stage}*'
+        - Effect: Allow
+          Action:
+            - es:ESHttpPut
+            - es:ESHttpPost
+            - es:ESHttpGet
+            - es:ESHttpDelete
+          Resource: 'arn:aws:es:${aws:region}:${aws:accountId}:domain/customers-${self:provider.stage}*'
+  logRetentionInDays: 1
+
+custom:
+  serverless-offline:
+    lambdaPort: 3001
+  prune:
+    automatic: true
+    number: 2
+  customDomain:
+    domainName: api.risingsurvival.com
+    stage: dev
+    basePath: ''
+    certificateName: '*.risingsurvival.com'
+    createRoute53Record: false
+    endpointType: REGIONAL
+    securityPolicy: tls_1_2
+    apiType: rest
+    autoDomain: false
+
+package:
+  individually: true
+  exclude:
+    - ./**
+  include:
+    - dist/**
+    - node_modules/**
+
+functions:
+  customers-api:
+    handler: dist/presentation/nestjs/lambda.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: '{proxy+}'
+
+  customers-dynamodb-stream:
+    handler: dist/presentation/lambda/handlers/customer/customer-dynamodb-stream.handler
+    events:
+      - stream:
+          type: dynamodb
+          arn: ${ssm:/customers/customers_dynamodb_stream_arn}
+          batchSize: 1
+          maximumRetryAttempts: 3
+          maximumRecordAgeInSeconds: 3600
