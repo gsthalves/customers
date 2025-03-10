@@ -75,13 +75,13 @@ jobs:
       - name: Package with Serverless Framework
         run: |
           cd api
-          npx serverless package --stage ${{ env.ENVIRONMENT }}
+          npx serverless package --stage ${{ env.ENVIRONMENT }} --package ./package/
 
       - name: Save Build as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: api-build
-          path: api/.serverless
+          path: api/.package
           retention-days: 5
 
   deploy-api:
@@ -107,7 +107,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: api-build
-          path: api/.serverless
+          path: api/.package
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
