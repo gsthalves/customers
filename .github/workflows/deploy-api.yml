@@ -1,0 +1,75 @@
+name: API Deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "api/**"
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: "Build & Test API"
+    runs-on: ubuntu-latest
+    outputs:
+      build_status: ${{ steps.build.outcome }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install Dependencies
+        run: |
+          cd api
+          npm install
+
+      - name: Run Tests
+        run: |
+          cd api
+          npm test
+
+      - name: Build API
+        id: build
+        run: |
+          cd api
+          npm run build
+
+      - name: Save Build as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: api-build
+          path: api/.serverless
+          retention-days: 5
+
+  deploy-api:
+    name: "Deploy API"
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Download API Build
+        uses: actions/download-artifact@v3
+        with:
+          name: api-build
+          path: api/.serverless
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Deploy with Serverless Framework (Only with Approval)
+        run: |
+          cd api
+          npx serverless deploy
