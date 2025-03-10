@@ -135,7 +135,7 @@ jobs:
         run: |
           npx serverless login
 
-      - name: Deploy with Serverless Framework (Only with Approval)
+      - name: Deploy with Serverless Framework
         run: |
           cd api
           npx serverless deploy --stage ${{ env.ENVIRONMENT }} --package ./package/ --verbose
