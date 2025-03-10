@@ -88,6 +88,7 @@ jobs:
     name: "Deploy API"
     needs: build-and-test
     runs-on: ubuntu-latest
+    environment: ${{ env.ENVIRONMENT }}
 
     steps:
       - name: Checkout Code
