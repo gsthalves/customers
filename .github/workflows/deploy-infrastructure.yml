@@ -8,12 +8,6 @@ on:
       - "infrastructure/**"
   workflow_dispatch:
 
-env:
-  ENVIRONMENT: ${{
-    github.ref == 'refs/heads/main' && 'prd' ||
-    github.ref == 'refs/heads/develop' && 'dev' ||
-    github.ref == 'refs/heads/homolog' && 'hml' }}
-
 jobs:
   terraform-plan:
     name: "Terraform Plan"
@@ -24,6 +18,16 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+
+      - name: Set Environment Variable
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "ENVIRONMENT=prd" >> $GITHUB_ENV
+          elif [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
+            echo "ENVIRONMENT=dev" >> $GITHUB_ENV
+          elif [[ "${{ github.ref }}" == "refs/heads/homolog" ]]; then
+            echo "ENVIRONMENT=hml" >> $GITHUB_ENV
+          fi
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -52,17 +56,26 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: terraform-plan
-          path: infra/tfplan
+          path: infrastructure/tfplan
           retention-days: 5
 
   terraform-apply:
     name: "Terraform Apply"
     needs: terraform-plan
     runs-on: ubuntu-latest
-    environment: ${{ env.ENVIRONMENT }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+
+      - name: Set Environment Variable
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "ENVIRONMENT=prd" >> $GITHUB_ENV
+          elif [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
+            echo "ENVIRONMENT=dev" >> $GITHUB_ENV
+          elif [[ "${{ github.ref }}" == "refs/heads/homolog" ]]; then
+            echo "ENVIRONMENT=hml" >> $GITHUB_ENV
+          fi
 
       - name: Download Saved Plan
         uses: actions/download-artifact@v3

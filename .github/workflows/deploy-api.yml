@@ -8,12 +8,6 @@ on:
       - "api/**"
   workflow_dispatch:
 
-env:
-  ENVIRONMENT: ${{
-    github.ref == 'refs/heads/main' && 'prd' ||
-    github.ref == 'refs/heads/develop' && 'dev' ||
-    github.ref == 'refs/heads/homolog' && 'hml' }}
-
 jobs:
   build-and-test:
     name: "Build & Test API"
@@ -24,6 +18,16 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+
+      - name: Set Environment Variable
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "ENVIRONMENT=prd" >> $GITHUB_ENV
+          elif [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
+            echo "ENVIRONMENT=dev" >> $GITHUB_ENV
+          elif [[ "${{ github.ref }}" == "refs/heads/homolog" ]]; then
+            echo "ENVIRONMENT=hml" >> $GITHUB_ENV
+          fi
 
       - name: Set Up Node.js
         uses: actions/setup-node@v3
@@ -57,10 +61,20 @@ jobs:
     name: "Deploy API"
     needs: build-and-test
     runs-on: ubuntu-latest
-    environment: ${{ env.ENVIRONMENT }}
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+
+      - name: Set Environment Variable
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "ENVIRONMENT=prd" >> $GITHUB_ENV
+          elif [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
+            echo "ENVIRONMENT=dev" >> $GITHUB_ENV
+          elif [[ "${{ github.ref }}" == "refs/heads/homolog" ]]; then
+            echo "ENVIRONMENT=hml" >> $GITHUB_ENV
+          fi
 
       - name: Download API Build
         uses: actions/download-artifact@v3
