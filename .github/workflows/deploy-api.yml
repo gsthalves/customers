@@ -75,7 +75,15 @@ jobs:
       - name: Package with Serverless Framework
         run: |
           cd api
-          npx serverless package --stage ${{ env.ENVIRONMENT }} --package ./package/
+          npx serverless package --stage ${{ env.ENVIRONMENT }} --verbose --package ./package/
+
+      - name: List Files to Verify Output Location
+        run: |
+          echo "Listing contents of the api directory:"
+          ls -alh
+          cd api
+          echo "Listing contents of the api directory:"
+          ls -alh
 
       - name: Save Build as Artifact
         uses: actions/upload-artifact@v4
@@ -127,4 +135,4 @@ jobs:
       - name: Deploy with Serverless Framework (Only with Approval)
         run: |
           cd api
-          npx serverless deploy --stage ${{ env.ENVIRONMENT }}
+          npx serverless deploy --stage ${{ env.ENVIRONMENT }} --verbose
