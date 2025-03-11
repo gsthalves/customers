@@ -6,10 +6,10 @@ describe('CustomerEntity', () => {
   it('should create a valid customer entity when all required fields are provided', () => {
     const customerProps = {
       name: 'John Doe',
-      taxId: '12345678901',
+      taxId: '42245682840',
       birthDate: new Date('1990-01-01'),
       email: 'john.doe@example.com',
-      phone: '1234567890',
+      phone: '14997065872',
       status: CustomerStatus.ACTIVE,
       notes: 'Some notes',
     };
@@ -19,12 +19,12 @@ describe('CustomerEntity', () => {
     expect(customer).toBeDefined();
     expect(customer.id).toBeDefined();
     expect(customer.pk).toBe('CUSTOMER#' + customer.id);
-    expect(customer.sk).toBe('CUSTOMER#TAXID#12345678901');
+    expect(customer.sk).toBe('CUSTOMER#TAXID#42245682840');
     expect(customer.name).toBe('John Doe');
-    expect(customer.taxId).toBe('12345678901');
+    expect(customer.taxId).toBe('42245682840');
     expect(customer.birthDate).toEqual(new Date('1990-01-01'));
     expect(customer.email).toBe('john.doe@example.com');
-    expect(customer.phone).toBe('1234567890');
+    expect(customer.phone).toBe('14997065872');
     expect(customer.status).toBe(CustomerStatus.ACTIVE);
     expect(customer.notes).toBe('Some notes');
     expect(customer.createdAt).toBeDefined();
@@ -34,10 +34,10 @@ describe('CustomerEntity', () => {
   it('should format pk as "CUSTOMER#" followed by the id', () => {
     const customerProps = {
       name: 'Jane Doe',
-      taxId: '98765432100',
+      taxId: '42245682840',
       birthDate: new Date('1985-05-15'),
       email: 'jane.doe@example.com',
-      phone: '0987654321',
+      phone: '14997065872',
       status: CustomerStatus.ACTIVE,
       notes: 'Test notes',
     };
@@ -50,26 +50,26 @@ describe('CustomerEntity', () => {
   it('should format sk correctly when taxId is provided', () => {
     const customerProps = {
       name: 'Jane Doe',
-      taxId: '98765432100',
+      taxId: '42245682840',
       birthDate: new Date('1985-05-15'),
       email: 'jane.doe@example.com',
-      phone: '0987654321',
+      phone: '14997065872',
       status: CustomerStatus.ACTIVE,
       notes: 'Test notes',
     };
 
     const customer = new CustomerEntity(customerProps);
 
-    expect(customer.sk).toBe('CUSTOMER#TAXID#98765432100');
+    expect(customer.sk).toBe('CUSTOMER#TAXID#42245682840');
   });
 
   it('should update mutable properties when valid values are provided', () => {
     const customerProps = {
       name: 'John Doe',
-      taxId: '12345678901',
+      taxId: '42245682840',
       birthDate: new Date('1990-01-01'),
       email: 'john.doe@example.com',
-      phone: '1234567890',
+      phone: '14997065872',
       status: CustomerStatus.ACTIVE,
       notes: 'Initial notes',
     };
@@ -90,35 +90,35 @@ describe('CustomerEntity', () => {
     const invalidCustomerProps = [
       {
         name: '',
-        taxId: '12345678901',
+        taxId: '42245682840',
         birthDate: new Date('1990-01-01'),
         email: 'john.doe@example.com',
-        phone: '1234567890',
+        phone: '14997065872',
       },
       {
         name: 'John Doe',
         taxId: '',
         birthDate: new Date('1990-01-01'),
         email: 'john.doe@example.com',
-        phone: '1234567890',
+        phone: '14997065872',
       },
       {
         name: 'John Doe',
-        taxId: '12345678901',
+        taxId: '42245682840',
         birthDate: undefined as any,
         email: 'john.doe@example.com',
-        phone: '1234567890',
+        phone: '14997065872',
       },
       {
         name: 'John Doe',
-        taxId: '12345678901',
+        taxId: '42245682840',
         birthDate: new Date('1990-01-01'),
         email: '',
-        phone: '1234567890',
+        phone: '14997065872',
       },
       {
         name: 'John Doe',
-        taxId: '12345678901',
+        taxId: '42245682840',
         birthDate: new Date('1990-01-01'),
         email: 'john.doe@example.com',
         phone: '',
@@ -128,18 +128,18 @@ describe('CustomerEntity', () => {
         taxId: 'invalidTaxId',
         birthDate: new Date('1990-01-01'),
         email: 'john.doe@example.com',
-        phone: '1234567890',
+        phone: '14997065872',
       },
       {
         name: 'John Doe',
-        taxId: '12345678901',
+        taxId: '42245682840',
         birthDate: new Date('1990-01-01'),
         email: 'invalidEmail',
-        phone: '1234567890',
+        phone: '14997065872',
       },
       {
         name: 'John Doe',
-        taxId: '12345678901',
+        taxId: '42245682840',
         birthDate: new Date('1990-01-01'),
         email: 'john.doe@example.com',
         phone: 'invalidPhone',
@@ -154,10 +154,10 @@ describe('CustomerEntity', () => {
   it('should throw BusinessValidationError when setting an empty name', () => {
     const customerProps = {
       name: 'Valid Name',
-      taxId: '12345678901',
+      taxId: '42245682840',
       birthDate: new Date('1990-01-01'),
       email: 'valid.email@example.com',
-      phone: '1234567890',
+      phone: '14997065872',
       status: CustomerStatus.ACTIVE,
       notes: 'Some notes',
     };
@@ -176,10 +176,10 @@ describe('CustomerEntity', () => {
   it('should throw BusinessValidationError when setting an invalid birthDate', () => {
     const customerProps = {
       name: 'John Doe',
-      taxId: '12345678901',
+      taxId: '42245682840',
       birthDate: new Date('1990-01-01'),
       email: 'john.doe@example.com',
-      phone: '1234567890',
+      phone: '14997065872',
       status: CustomerStatus.ACTIVE,
       notes: 'Some notes',
     };
@@ -193,10 +193,10 @@ describe('CustomerEntity', () => {
   it('should throw BusinessValidationError when setting an empty or invalid phone', () => {
     const customerProps = {
       name: 'John Doe',
-      taxId: '12345678901',
+      taxId: '42245682840',
       birthDate: new Date('1990-01-01'),
       email: 'john.doe@example.com',
-      phone: '1234567890',
+      phone: '14997065872',
       status: CustomerStatus.ACTIVE,
       notes: 'Some notes',
     };
@@ -219,10 +219,10 @@ describe('CustomerEntity', () => {
   it('should set default status to ACTIVE when status is not provided', () => {
     const customerProps = {
       name: 'Jane Doe',
-      taxId: '09876543210',
+      taxId: '42245682840',
       birthDate: new Date('1985-05-15'),
       email: 'jane.doe@example.com',
-      phone: '0987654321',
+      phone: '14997065872',
     };
 
     const customer = new CustomerEntity(customerProps);

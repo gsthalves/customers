@@ -19,10 +19,10 @@ describe('GetCustomerUseCase', () => {
     const existingCustomer = new CustomerEntity({
       id: 'valid-id',
       name: 'John Doe',
-      taxId: '12345678901',
+      taxId: '42245682840',
       birthDate: new Date('1990-01-01'),
       email: 'john@example.com',
-      phone: '1234567890',
+      phone: '14997065872',
       notes: 'Some notes',
     });
 
@@ -36,10 +36,10 @@ describe('GetCustomerUseCase', () => {
     expect(result).toEqual({
       id: 'valid-id',
       name: 'John Doe',
-      taxId: '12345678901',
+      taxId: '42245682840',
       birthDate: existingCustomer.birthDate,
       email: 'john@example.com',
-      phone: '1234567890',
+      phone: '14997065872',
       notes: 'Some notes',
     });
   });

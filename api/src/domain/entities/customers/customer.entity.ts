@@ -83,7 +83,28 @@ export class CustomerEntity extends BaseEntity<CustomerEntityProps> {
   }
 
   private isValidTaxId(taxId: string): boolean {
-    return /^[0-9]{11}$/.test(taxId) || /^[0-9]{14}$/.test(taxId);
+    taxId = taxId.replace(/[^\d]/g, '');
+
+    if (taxId.length !== 11 || /^(\d)\1{10}$/.test(taxId)) {
+      return false;
+    }
+
+    const calculateCheckDigit = (factor: number) => {
+      let total = 0;
+      for (let i = 0; i < factor - 1; i++) {
+        total += parseInt(taxId[i]) * (factor - i);
+      }
+      const remainder = total % 11;
+      return remainder < 2 ? 0 : 11 - remainder;
+    };
+
+    const firstCheckDigit = calculateCheckDigit(10);
+    const secondCheckDigit = calculateCheckDigit(11);
+
+    return (
+      firstCheckDigit === parseInt(taxId[9]) &&
+      secondCheckDigit === parseInt(taxId[10])
+    );
   }
 
   private isValidEmail(email: string): boolean {

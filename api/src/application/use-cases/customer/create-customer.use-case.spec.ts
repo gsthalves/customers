@@ -24,7 +24,7 @@ describe('CreateCustomerUseCase', () => {
 
     const input = {
       name: 'John Doe',
-      taxId: '12345678901',
+      taxId: '42245682840',
       birthDate: new Date('1990-01-01'),
       email: 'john.doe@example.com',
       phone: '1234567890',
@@ -53,7 +53,7 @@ describe('CreateCustomerUseCase', () => {
   it('should throw CustomerTaxIdAlreadExistsError when tax ID already exists', async () => {
     const existingCustomer = new CustomerEntity({
       name: 'Existing User',
-      taxId: '12345678901',
+      taxId: '42245682840',
       birthDate: new Date('1990-01-01'),
       email: 'existing@example.com',
       phone: '1234567890',
@@ -68,7 +68,7 @@ describe('CreateCustomerUseCase', () => {
 
     const input = {
       name: 'John Doe',
-      taxId: '12345678901',
+      taxId: '42245682840',
       birthDate: new Date('1990-01-01'),
       email: 'john.doe@example.com',
       phone: '1234567890',
@@ -86,7 +86,7 @@ describe('CreateCustomerUseCase', () => {
   it('should throw CustomerEmailAlreadExistsError when email already exists', async () => {
     const existingCustomer = new CustomerEntity({
       name: 'Existing User',
-      taxId: '12345678901',
+      taxId: '42245682840',
       birthDate: new Date('1990-01-01'),
       email: 'existing@example.com',
       phone: '1234567890',
@@ -101,7 +101,7 @@ describe('CreateCustomerUseCase', () => {
 
     const input = {
       name: 'Jane Doe',
-      taxId: '09876543210',
+      taxId: '42245682840',
       birthDate: new Date('1992-02-02'),
       email: 'existing@example.com',
       phone: '0987654321',
@@ -126,7 +126,7 @@ describe('CreateCustomerUseCase', () => {
 
     const input = {
       name: 'John Doe',
-      taxId: '12345678901',
+      taxId: '42245682840',
       birthDate: new Date('1990-01-01'),
       email: 'john.doe@example.com',
       phone: '1234567890',

@@ -21,7 +21,7 @@ describe('CustomerDynamoDBStreamUseCase', () => {
       keys: { PK: { S: 'CUSTOMER#123' } },
       newData: {
         name: { S: 'John Doe' },
-        taxId: { S: '12345678901' },
+        taxId: { S: '42245682840' },
         birthDate: { S: '2000-01-01' },
         email: { S: 'john@example.com' },
         phone: { S: '1234567890' },
@@ -41,7 +41,7 @@ describe('CustomerDynamoDBStreamUseCase', () => {
         id: '123',
         props: expect.objectContaining({
           name: 'John Doe',
-          taxId: '12345678901',
+          taxId: '42245682840',
           email: 'john@example.com',
           phone: '1234567890',
         }),
@@ -64,7 +64,7 @@ describe('CustomerDynamoDBStreamUseCase', () => {
       keys: { PK: { S: 'CUSTOMER#123' } },
       newData: {
         name: { S: 'Jane Doe' },
-        taxId: { S: '12345678901' },
+        taxId: { S: '42245682840' },
         birthDate: { S: '1990-01-01' },
         email: { S: 'jane@example.com' },
         phone: { S: '0987654321' },
@@ -84,7 +84,7 @@ describe('CustomerDynamoDBStreamUseCase', () => {
         id: '123',
         props: expect.objectContaining({
           name: 'Jane Doe',
-          taxId: '12345678901',
+          taxId: '42245682840',
           email: 'jane@example.com',
           phone: '0987654321',
         }),
@@ -108,7 +108,7 @@ describe('CustomerDynamoDBStreamUseCase', () => {
       newData: {},
       oldData: {
         name: { S: 'John Doe' },
-        taxId: { S: '12345678901' },
+        taxId: { S: '42245682840' },
         birthDate: { S: '2000-01-01' },
         email: { S: 'john@example.com' },
         phone: { S: '1234567890' },
@@ -140,7 +140,7 @@ describe('CustomerDynamoDBStreamUseCase', () => {
       keys: { PK: { S: 'CUSTOMER#123' } },
       newData: {
         name: { S: 'John Doe' },
-        taxId: { S: '12345678901' },
+        taxId: { S: '42245682840' },
         birthDate: { S: '2000-01-01' },
         email: { S: 'john@example.com' },
         phone: { S: '1234567890' },
@@ -180,7 +180,7 @@ describe('CustomerDynamoDBStreamUseCase', () => {
       keys: { PK: { S: 'CUSTOMER#123' } },
       newData: {
         name: { S: 'John Doe' },
-        taxId: { S: '12345678901' },
+        taxId: { S: '42245682840' },
         birthDate: { S: '2000-01-01' },
         email: { S: 'john@example.com' },
         phone: { S: '1234567890' },

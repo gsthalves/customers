@@ -17,10 +17,10 @@ describe('SearchCustomerUseCase', () => {
       new CustomerEntity({
         id: '1',
         name: 'John Doe',
-        taxId: '12345678901',
+        taxId: '42245682840',
         birthDate: new Date('1990-01-01'),
         email: 'john@example.com',
-        phone: '1234567890',
+        phone: '14997065872',
         notes: 'Some notes',
       }),
     ];
@@ -39,10 +39,10 @@ describe('SearchCustomerUseCase', () => {
       {
         id: '1',
         name: 'John Doe',
-        taxId: '12345678901',
+        taxId: '42245682840',
         birthDate: new Date('1990-01-01'),
         email: 'john@example.com',
-        phone: '1234567890',
+        phone: '14997065872',
         notes: 'Some notes',
       },
     ]);

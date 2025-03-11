@@ -19,7 +19,7 @@ describe('DeleteCustomerUseCase', () => {
     const existingCustomer = new CustomerEntity({
       id: '123',
       name: 'Existing User',
-      taxId: '12345678901',
+      taxId: '42245682840',
       birthDate: new Date('1990-01-01'),
       email: 'existing@example.com',
       phone: '1234567890',
@@ -34,7 +34,7 @@ describe('DeleteCustomerUseCase', () => {
     expect(customerRepository.findById).toHaveBeenCalledWith('123');
     expect(customerRepository.delete).toHaveBeenCalledWith(
       'CUSTOMER#123',
-      'CUSTOMER#TAXID#12345678901',
+      'CUSTOMER#TAXID#42245682840',
     );
     expect(logger.info).toHaveBeenCalledTimes(2);
   });
@@ -59,7 +59,7 @@ describe('DeleteCustomerUseCase', () => {
     const existingCustomer = new CustomerEntity({
       id: '123',
       name: 'Existing User',
-      taxId: '12345678901',
+      taxId: '42245682840',
       birthDate: new Date('1990-01-01'),
       email: 'existing@example.com',
       phone: '1234567890',

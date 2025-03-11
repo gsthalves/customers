@@ -9,6 +9,7 @@ import {
   CustomerNotExistsError,
   CustomerUnexpectedError,
 } from 'application/errors';
+import { BusinessValidationError } from 'domain/errors';
 
 export class UpdateCustomerUseCase implements IUpdateCustomerUseCase {
   constructor(
@@ -63,6 +64,7 @@ export class UpdateCustomerUseCase implements IUpdateCustomerUseCase {
         },
       );
 
+      if (error instanceof BusinessValidationError) throw error;
       if (error instanceof CustomerNotExistsError) throw error;
 
       throw new CustomerUnexpectedError('Error to update customer.');

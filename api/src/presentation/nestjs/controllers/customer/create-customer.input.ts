@@ -17,7 +17,7 @@ export class CreateCustomerInput {
   @IsNotEmpty()
   @IsAlphanumeric()
   @MinLength(11)
-  @MaxLength(14)
+  @MaxLength(11)
   @ApiProperty({ example: '42245682840', description: 'TaxId of customer.' })
   taxId: string;
 

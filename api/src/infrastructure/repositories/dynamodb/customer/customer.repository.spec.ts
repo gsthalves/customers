@@ -19,10 +19,10 @@ describe('CustomerRepository', () => {
     const customer = new CustomerEntity({
       id: '123',
       name: 'John Doe',
-      taxId: '12345678901',
+      taxId: '42245682840',
       birthDate: new Date('1990-01-01'),
       email: 'john@example.com',
-      phone: '1234567890',
+      phone: '14997065872',
       status: CustomerStatus.ACTIVE,
       notes: 'Some notes',
       createdAt: new Date(),
@@ -58,10 +58,10 @@ describe('CustomerRepository', () => {
     const customer = new CustomerEntity({
       id: '123',
       name: 'John Doe',
-      taxId: '12345678901',
+      taxId: '42245682840',
       birthDate: new Date('1990-01-01'),
       email: 'john@example.com',
-      phone: '1234567890',
+      phone: '14997065872',
       status: CustomerStatus.ACTIVE,
       notes: 'Some notes',
       createdAt: new Date(),
@@ -106,10 +106,10 @@ describe('CustomerRepository', () => {
       new CustomerEntity({
         id: '123',
         name: 'John Doe',
-        taxId: '12345678901',
+        taxId: '42245682840',
         birthDate: new Date('1990-01-01'),
         email: 'john@example.com',
-        phone: '1234567890',
+        phone: '14997065872',
         status: CustomerStatus.ACTIVE,
         notes: 'Some notes',
         createdAt: new Date(),
@@ -152,10 +152,10 @@ describe('CustomerRepository', () => {
       new CustomerEntity({
         id: '123',
         name: 'John Doe',
-        taxId: '12345678901',
+        taxId: '42245682840',
         birthDate: new Date('1990-01-01'),
         email: 'john@example.com',
-        phone: '1234567890',
+        phone: '14997065872',
         status: CustomerStatus.ACTIVE,
         notes: 'Some notes',
         createdAt: new Date(),
@@ -167,7 +167,7 @@ describe('CustomerRepository', () => {
 
     const repository = new CustomerRepositoryDynamoDB(logger, dynamoDB, env);
 
-    const taxId = '12345678901';
+    const taxId = '42245682840';
 
     const result = await repository.findByTaxId(taxId);
 
@@ -200,10 +200,10 @@ describe('CustomerRepository', () => {
       new CustomerEntity({
         id: '123',
         name: 'John Doe',
-        taxId: '12345678901',
+        taxId: '42245682840',
         birthDate: new Date('1990-01-01'),
         email: 'john@example.com',
-        phone: '1234567890',
+        phone: '14997065872',
         status: CustomerStatus.ACTIVE,
         notes: 'Some notes',
         createdAt: new Date(),
@@ -248,7 +248,7 @@ describe('CustomerRepository', () => {
     const repository = new CustomerRepositoryDynamoDB(logger, dynamoDB, env);
 
     const pk = 'CUSTOMER#123';
-    const sk = 'CUSTOMER#TAXID#12345678901';
+    const sk = 'CUSTOMER#TAXID#42245682840';
 
     await repository.delete(pk, sk);
 
@@ -279,10 +279,10 @@ describe('CustomerRepository', () => {
     const customer = new CustomerEntity({
       id: '123',
       name: 'John Doe',
-      taxId: '12345678901',
+      taxId: '42245682840',
       birthDate: new Date('1990-01-01'),
       email: 'john@example.com',
-      phone: '1234567890',
+      phone: '14997065872',
       status: CustomerStatus.ACTIVE,
       notes: 'Some notes',
       createdAt: new Date(),
@@ -315,10 +315,10 @@ describe('CustomerRepository', () => {
     const customer = new CustomerEntity({
       id: '123',
       name: 'John Doe',
-      taxId: '12345678901',
+      taxId: '42245682840',
       birthDate: new Date('1990-01-01'),
       email: 'john@example.com',
-      phone: '1234567890',
+      phone: '14997065872',
       status: CustomerStatus.ACTIVE,
       notes: 'Some notes',
       createdAt: new Date(),
@@ -386,7 +386,7 @@ describe('CustomerRepository', () => {
 
     const repository = new CustomerRepositoryDynamoDB(logger, dynamoDB, env);
 
-    const taxId = '12345678901';
+    const taxId = '42245682840';
 
     await expect(repository.findByTaxId(taxId)).rejects.toThrow(
       'Unexpected error',
@@ -437,7 +437,7 @@ describe('CustomerRepository', () => {
     const repository = new CustomerRepositoryDynamoDB(logger, dynamoDB, env);
 
     const pk = 'CUSTOMER#123';
-    const sk = 'CUSTOMER#TAXID#12345678901';
+    const sk = 'CUSTOMER#TAXID#42245682840';
 
     await expect(repository.delete(pk, sk)).rejects.toThrow('Unexpected error');
 

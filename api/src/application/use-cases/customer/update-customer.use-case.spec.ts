@@ -19,10 +19,10 @@ describe('UpdateCustomerUseCase', () => {
     const existingCustomer = new CustomerEntity({
       id: 'customer-id',
       name: 'Old Name',
-      taxId: '12345678901',
+      taxId: '42245682840',
       birthDate: new Date('1990-01-01'),
       email: 'customer@example.com',
-      phone: '1234567890',
+      phone: '14997065872',
       notes: 'Old notes',
     });
 
@@ -32,7 +32,7 @@ describe('UpdateCustomerUseCase', () => {
       id: 'customer-id',
       name: 'New Name',
       birthDate: new Date('1990-01-01'),
-      phone: '9876543210',
+      phone: '14997065872',
       notes: 'Updated notes',
     };
 
@@ -54,7 +54,7 @@ describe('UpdateCustomerUseCase', () => {
       id: 'non-existent-id',
       name: 'New Name',
       birthDate: new Date('1990-01-01'),
-      phone: '987654321',
+      phone: '14997065872',
       notes: 'Updated notes',
     };
 
@@ -72,10 +72,10 @@ describe('UpdateCustomerUseCase', () => {
     const existingCustomer = new CustomerEntity({
       id: 'customer-id',
       name: 'Old Name',
-      taxId: '12345678901',
+      taxId: '42245682840',
       birthDate: new Date('1990-01-01'),
       email: 'customer@example.com',
-      phone: '1234567890',
+      phone: '14997065872',
       notes: 'Old notes',
     });
 
@@ -86,7 +86,7 @@ describe('UpdateCustomerUseCase', () => {
       id: 'customer-id',
       name: 'New Name',
       birthDate: new Date('1990-01-01'),
-      phone: '987654321',
+      phone: '14997065872',
       notes: 'Updated notes',
     };
 

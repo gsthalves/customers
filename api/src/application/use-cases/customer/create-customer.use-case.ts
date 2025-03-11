@@ -11,6 +11,7 @@ import {
   CustomerTaxIdAlreadExistsError,
   CustomerUnexpectedError,
 } from 'application/errors';
+import { BusinessValidationError } from 'domain/errors';
 
 export class CreateCustomerUseCase implements ICreateCustomerUseCase {
   constructor(
@@ -79,6 +80,7 @@ export class CreateCustomerUseCase implements ICreateCustomerUseCase {
         },
       );
 
+      if (error instanceof BusinessValidationError) throw error;
       if (error instanceof CustomerTaxIdAlreadExistsError) throw error;
       if (error instanceof CustomerEmailAlreadExistsError) throw error;
 
