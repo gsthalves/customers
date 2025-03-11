@@ -11,3 +11,6 @@ plan:
 
 apply:
 	terraform apply --var-file=envs/$(env).tfvars
+
+destroy:
+	terraform destroy
