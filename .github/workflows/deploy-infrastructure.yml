@@ -79,12 +79,6 @@ jobs:
             echo "ENVIRONMENT=hml" >> $GITHUB_ENV
           fi
 
-      - name: Download Saved Plan
-        uses: actions/download-artifact@v4
-        with:
-          name: terraform-plan
-          path: tfplan
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -97,7 +91,12 @@ jobs:
         with:
           terraform_version: 1.5.0
 
+      - name: Initialize Terraform
+        run: |
+          cd infrastructure
+          terraform init --backend-config=envs/${{ env.ENVIRONMENT }}.backend.config -reconfigure
+
       - name: Apply Terraform (Only with Approval)
         run: |
           cd infrastructure
-          terraform apply --auto-approve tfplan --var-file=envs/${{ env.ENVIRONMENT }}.tfvars
+          terraform apply --auto-approve --var-file=envs/${{ env.ENVIRONMENT }}.tfvars
