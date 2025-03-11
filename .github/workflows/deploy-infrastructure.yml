@@ -96,7 +96,7 @@ jobs:
           cd infrastructure
           terraform init --backend-config=envs/${{ env.ENVIRONMENT }}.backend.config -reconfigure
 
-      - name: Apply Terraform (Only with Approval)
+      - name: Apply Terraform
         run: |
           cd infrastructure
           terraform apply --auto-approve --var-file=envs/${{ env.ENVIRONMENT }}.tfvars
