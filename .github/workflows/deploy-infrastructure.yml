@@ -44,7 +44,7 @@ jobs:
       - name: Initialize Terraform
         run: |
           cd infrastructure
-          terraform init --backend-config=envs/${{ env.ENVIRONMENT }}.backend.config -reconfigure
+          terraform init --backend-config=envs/${{ env.ENVIRONMENT }}.backend.config
 
       - name: Terraform Plan
         id: plan
@@ -83,7 +83,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: terraform-plan
-          path: infrastructure/tfplan
+          path: tfplan
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
