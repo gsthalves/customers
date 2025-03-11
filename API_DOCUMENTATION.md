@@ -1,4 +1,4 @@
-# Rising Survival API
+# Customers API
 
 ## API URL
 
