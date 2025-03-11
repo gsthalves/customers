@@ -6,6 +6,7 @@ import {
   CustomerNotExistsError,
   CustomerUnexpectedError,
 } from 'application/errors';
+import { BusinessValidationError } from 'domain/errors';
 
 describe('UpdateCustomerUseCase', () => {
   const logger = mock<ILogger>();
@@ -96,5 +97,44 @@ describe('UpdateCustomerUseCase', () => {
       CustomerUnexpectedError,
     );
     expect(logger.error).toHaveBeenCalled();
+  });
+
+  it('should rethrow BusinessValidationError when it occurs during execution', async () => {
+    const existingCustomer = new CustomerEntity({
+      id: 'customer-id',
+      name: 'Old Name',
+      taxId: '42245682840',
+      birthDate: new Date('1990-01-01'),
+      email: 'customer@example.com',
+      phone: '14997065872',
+      notes: 'Old notes',
+    });
+
+    customerRepository.findById.mockResolvedValue(existingCustomer);
+
+    const updateCustomerUseCase = new UpdateCustomerUseCase(
+      logger,
+      customerRepository,
+    );
+
+    const input = {
+      id: 'customer-id',
+      name: 'New Name',
+      birthDate: new Date('1990-01-01'),
+      phone: '',
+      notes: 'Updated notes',
+    };
+
+    await expect(updateCustomerUseCase.execute(input)).rejects.toThrow(
+      BusinessValidationError,
+    );
+
+    expect(logger.error).toHaveBeenCalledWith(
+      'UpdateCustomerUseCase.execute',
+      'Error to update customer.',
+      expect.objectContaining({
+        error: 'Phone is required.',
+      }),
+    );
   });
 });

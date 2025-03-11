@@ -7,6 +7,7 @@ import {
   CustomerUnexpectedError,
 } from 'application/errors';
 import { CustomerEntity } from 'domain/entities';
+import { BusinessValidationError } from 'domain/errors';
 
 describe('CreateCustomerUseCase', () => {
   const logger = mock<ILogger>();
@@ -143,5 +144,26 @@ describe('CreateCustomerUseCase', () => {
         error: 'Unexpected error',
       }),
     );
+  });
+
+  it('should throw BusinessValidationError when customer name is missing', async () => {
+    const createCustomerUseCase = new CreateCustomerUseCase(
+      logger,
+      customerRepository,
+    );
+
+    const input = {
+      name: '',
+      taxId: '12345678909',
+      birthDate: new Date('1990-01-01'),
+      email: 'john.doe@example.com',
+      phone: '1234567890',
+      notes: 'Some notes',
+    };
+
+    await expect(createCustomerUseCase.execute(input)).rejects.toThrow(
+      BusinessValidationError,
+    );
+    expect(logger.error).toHaveBeenCalled();
   });
 });
