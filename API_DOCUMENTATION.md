@@ -1,5 +1,9 @@
 # Rising Survival API
 
+## API URL
+
+[https://api.risingsurvival.com](https://api.risingsurvival.com)
+
 ## Swagger
 
 [Swagger API Docs](https://api.risingsurvival.com/docs)
@@ -33,7 +37,7 @@ curl --request POST \
 **Request Example:**
 ```sh
 curl --request PUT \
-  --url https://api.risingsurvival.com/customer/{customerId} \
+  --url https://api.risingsurvival.com/customer/91d23b1f-f6e1-403a-a1bf-cb5d407ea3eb \
   --header 'Content-Type: application/json' \
   --header 'User-Agent: insomnia/10.0.0' \
   --data '{
@@ -51,7 +55,7 @@ curl --request PUT \
 **Request Example:**
 ```sh
 curl --request GET \
-  --url https://api.risingsurvival.com/customer/{customerId} \
+  --url https://api.risingsurvival.com/customer/91d23b1f-f6e1-403a-a1bf-cb5d407ea3eb \
   --header 'User-Agent: insomnia/10.0.0'
 ```
 
@@ -62,7 +66,7 @@ curl --request GET \
 **Request Example:**
 ```sh
 curl --request GET \
-  --url https://api.risingsurvival.com/customer/search/{query} \
+  --url https://api.risingsurvival.com/customer/search/alves \
   --header 'User-Agent: insomnia/10.0.0'
 ```
 
@@ -73,5 +77,5 @@ curl --request GET \
 **Request Example:**
 ```sh
 curl --request DELETE \
-  --url https://api.risingsurvival.com/customer/{customerId} \
+  --url https://api.risingsurvival.com/customer/91d23b1f-f6e1-403a-a1bf-cb5d407ea3eb \
   --header 'User-Agent: insomnia/10.0.0'
