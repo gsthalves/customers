@@ -43,7 +43,7 @@ terraform plan --var-file=envs/dev.tfvars                 # Plan infrastructure 
 terraform apply --var-file=envs/dev.tfvars                # Apply infrastructure changes
 ```
 
-Alternatively, you can run the Makefile commands:
+Alternatively, use Makefile commands:
 
 ```sh
 cd infrastructure
@@ -61,12 +61,26 @@ npm install
 
 ### 4. Run the API Locally with Serverless
 
+Before run API, you must login in serverless with your account and change org in `api/serverless.yml`:
+
+#### Login Serverless:
+
+```sh
+serverless login
+```
+
+#### Replace Serverless Org:
+
+After you already logged, just create a new org in serverless console and replace `api/serverless.yml`.
+
+#### Running API:
+
 ```sh
 cd api
 npm run start:lambda:dev
 ```
 
-Alternatively, you can run the Makefile commands:
+Alternatively, use Makefile commands:
 
 ```sh
 cd api
@@ -91,7 +105,7 @@ cd api
 npm run test:cov
 ```
 
-Alternatively, you can run the Makefile commands:
+Alternatively, use Makefile commands:
 
 #### Run tests without coverage:
 
@@ -115,7 +129,7 @@ To deploy the API to AWS, run:
 serverless deploy --stage dev
 ```
 
-Alternatively, you can run the Makefile commands:
+Alternatively, use Makefile commands:
 
 ```sh
 make deploy env=dev
