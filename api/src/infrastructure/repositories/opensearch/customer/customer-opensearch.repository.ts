@@ -135,6 +135,11 @@ export class CustomerOpenSearchRepository
         index: this.indexName,
         id,
       });
+
+      this.logger.info(
+        'CustomerOpenSearchRepository.delete',
+        'Finished delete customer.',
+      );
     } catch (error) {
       this.logger.error(
         'CustomerOpenSearchRepository.delete',
@@ -147,10 +152,5 @@ export class CustomerOpenSearchRepository
 
       throw new DatabaseUnexpectedError('Error delete customer.', error);
     }
-
-    this.logger.info(
-      'CustomerOpenSearchRepository.delete',
-      'Finished delete customer.',
-    );
   }
 }

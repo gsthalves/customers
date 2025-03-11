@@ -82,9 +82,8 @@
     ],
     "modulePathIgnorePatterns": [
       "<rootDir>/domain/contracts",
-      "<rootDir>/presentation/nestjs/modules",
-      "<rootDir>/presentation/nestjs/main.ts",
-      "<rootDir>/presentation/nestjs/lambda.ts"
+      "<rootDir>/infrastructure/factories",
+      "<rootDir>/presentation"
     ],
     "moduleFileExtensions": [
       "js",

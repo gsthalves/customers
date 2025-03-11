@@ -39,6 +39,11 @@ jobs:
           cd api
           npm install
 
+      - name: Run Lint
+        run: |
+          cd api
+          npm run lint
+
       - name: Run Tests with Coverage
         run: |
           cd api
