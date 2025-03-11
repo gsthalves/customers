@@ -44,7 +44,7 @@ jobs:
       - name: Initialize Terraform
         run: |
           cd infrastructure
-          terraform init --backend-config=envs/${{ env.ENVIRONMENT }}.backend.config
+          terraform init --backend-config=envs/${{ env.ENVIRONMENT }}.backend.config -reconfigure
 
       - name: Terraform Plan
         id: plan
