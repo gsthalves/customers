@@ -97,7 +97,7 @@ jobs:
         with:
           terraform_version: 1.5.0
 
-      - name: Apply Terraform
+      - name: Apply Terraform (Only with Approval)
         run: |
           cd infrastructure
-          terraform apply --auto-approve --var-file=envs/${{ env.ENVIRONMENT }}.tfvars
+          terraform apply --auto-approve tfplan --var-file=envs/${{ env.ENVIRONMENT }}.tfvars
